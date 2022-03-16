@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="Linketinder:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Linketinder_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Linketinder.jar">
+        <element id="module-output" name="Linketinder" />
+      </element>
+      <element id="library" level="project" name="groovy-4.0.0" />
+    </root>
+  </artifact>
+</component>
