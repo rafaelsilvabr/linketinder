@@ -1,0 +1,24 @@
+{
+  "name": "linketinder",
+  "version": "1.0.0",
+  "description": "Linketinder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelsilvabr/linketinder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaelsilvabr/linketinder/issues"
+  },
+  "homepage": "https://github.com/rafaelsilvabr/linketinder#readme",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}
