@@ -33,11 +33,13 @@ class JuridicPerson extends Person{
 class FisicPerson extends Person{
     cpf: string
     skills: string[]
+    telefone: string
 
-    constructor(name: string, email: string, country: string, state: string, description: string, cpf: string, skills: string[]) {
+    constructor(name: string, email: string, country: string, state: string, description: string, cpf: string, skills: string[], telefone:string) {
         super(name, email, country, state, description);
         this.cpf = cpf;
         this.skills = skills;
+        this.telefone = telefone;
     }
 }
 
@@ -62,18 +64,35 @@ const inputState = document.querySelector(".inputState")
 const inputCountry = document.querySelector(".inputCountry")
 const inputCEP = document.querySelector(".inputCEP")
 const inputDescription = document.querySelector(".description")
-const inputSkills = document.querySelector(".skills")
+const inputTelefone = document.querySelector(".inputTelefone")
 
-const inputNecessarySkills = document.querySelector(".necessarySkills")
+const erro = document.querySelector(".erro")
 
-function cadastraEmpresa(){
+const checkboxJava = document.querySelector(".checkboxJava")
+const checkboxGroovy = document.querySelector(".checkboxGroovy")
+const checkboxJavaScript = document.querySelector(".checkboxJavaScript")
+const checkboxMysql = document.querySelector(".checkboxMysql")
+const checkboxPython = document.querySelector(".checkboxPython")
+const checkboxSpring = document.querySelector(".checkboxSpring")
+
+function criaEmpresa(){
+    let skillsNecessarias:Array<string> = new Array<string>()
+    if (checkboxJava.checked) skillsNecessarias.push("Java")
+    if (checkboxGroovy.checked) skillsNecessarias.push("Groovy")
+    if (checkboxJavaScript.checked) skillsNecessarias.push("JavaScript")
+    if (checkboxMysql.checked) skillsNecessarias.push("MySql")
+    if (checkboxPython.checked) skillsNecessarias.push("Python")
+    if (checkboxSpring.checked) skillsNecessarias.push("Spring")
+
+    console.log(skillsNecessarias)
+
     const empresa = new JuridicPerson(
         inputName.value,
         inputEmail.value,
         inputCountry.value,
         inputState.value,
         inputDescription.value,
-        inputNecessarySkills.value,
+        skillsNecessarias,
         inputCEP.value,
         inputState.value
     )
@@ -81,7 +100,56 @@ function cadastraEmpresa(){
     console.log(empresas)
 }
 
-function cadastraCandidato(){
+function validaDadosEmpresa(){
+    const validaCNPJ = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
+    const validaCEP = /^\d{2}\.?\d{3}\-\d{3}/
+    const validaEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+
+    var stringErro = " "
+
+    if (!validaCNPJ.test(inputCNPJ.value)){
+        stringErro = stringErro + "Insira um CNPJ válido!"
+    }
+
+    if (!validaCEP.test(inputCEP.value)){
+        stringErro = stringErro + " Insira um CEP válido!"
+    }
+
+    if (!validaEmail.test(inputEmail.value)){
+        stringErro = stringErro + " Insira um Email válido!"
+    }
+
+    if (!(checkboxGroovy.checked || checkboxJava.checked || checkboxJavaScript.checked || checkboxMysql.checked || checkboxSpring.checked || checkboxPython.checked)){
+        stringErro = stringErro + " Selecione alguma Skill Necessária!"
+    }
+
+    erro.innerHTML = stringErro
+
+    return (validaCNPJ.test(inputCNPJ.value) &&
+            validaCEP.test(inputCEP.value) &&
+            validaEmail.test(inputEmail.value) &&
+            (checkboxGroovy.checked || checkboxJava.checked || checkboxJavaScript.checked || checkboxMysql.checked || checkboxSpring.checked || checkboxPython.checked)
+    )
+}
+
+function cadastraEmpresa(){
+    if(validaDadosEmpresa()){
+        erro.style.display = "none"
+        criaEmpresa()
+    }else{
+        erro.style.display = "grid"
+    }
+}
+
+function criaCandidato(){
+    let skills:Array<string> = new Array<string>()
+    if (checkboxJava.checked) skills.push("Java")
+    if (checkboxGroovy.checked) skills.push("Groovy")
+    if (checkboxJavaScript.checked) skills.push("JavaScript")
+    if (checkboxMysql.checked) skills.push("MySql")
+    if (checkboxPython.checked) skills.push("Python")
+    if (checkboxSpring.checked) skills.push("Spring")
+
     const candidato = new FisicPerson(
         inputName.value,
         inputEmail.value,
@@ -89,10 +157,52 @@ function cadastraCandidato(){
         inputState.value,
         inputDescription.value,
         inputCPF.value,
-        inputSkills.value
+        skills,
+        inputTelefone.value
     )
     candidatos.push(candidato)
     console.log(candidatos)
+}
+
+function validaDadosCandidato(){
+    const validaCPF = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/
+    const validaEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const validaTelefone = /^\(?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$/
+
+    var stringErro = " "
+
+    if (!validaCPF.test(inputCPF.value)){
+        stringErro = stringErro + "Insira um CPF válido!"
+    }
+
+    if (!validaEmail.test(inputEmail.value)){
+        stringErro = stringErro + " Insira um Email válido!"
+    }
+
+    if (!validaTelefone.test(inputTelefone.value)){
+        stringErro = stringErro + " Insira um Telefone válido!"
+    }
+
+    if (!(checkboxGroovy.checked || checkboxJava.checked || checkboxJavaScript.checked || checkboxMysql.checked || checkboxSpring.checked || checkboxPython.checked)){
+        stringErro = stringErro + " Selecione alguma Skill!"
+    }
+
+    erro.innerHTML = stringErro
+
+    return (validaCPF.test(inputCPF.value) &&
+        validaEmail.test(inputEmail.value) &&
+        validaTelefone.test(inputTelefone.value) &&
+        (checkboxGroovy.checked || checkboxJava.checked || checkboxJavaScript.checked || checkboxMysql.checked || checkboxSpring.checked || checkboxPython.checked)
+    )
+}
+
+function cadastraCandidato(){
+    if(validaDadosCandidato()){
+        erro.style.display = "none"
+        criaCandidato()
+    }else{
+        erro.style.display = "grid"
+    }
 }
 
 function removeEmpresa(empresa){

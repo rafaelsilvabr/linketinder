@@ -5,16 +5,27 @@
     <title>Cadastro Candidato</title>
 </head>
 <body>
+    <p class="erro"></p>
     <h1 class="titulo"><a target="_self" href="index.html">LinkeTinder</a></h1>
     <h2 class="subtitulo">Cadastro Candidato</h2>
 
     <input class="inputName" type="text" placeholder="Nome">
     <input class="inputCPF" type="text" placeholder="CPF">
+    <input class="inputTelefone" type="text" placeholder="Telefone">
     <input class="inputEmail" type="text" placeholder="email">
     <input class="inputState" type="text" placeholder="Estado">
     <input class="inputCountry" type="text" placeholder="País">
     <input class="description" type="text" placeholder="Descrição">
-    <input class="skills" type="text" placeholder="Skills">
+
+    <h3 class="skills">Skills</h3>
+    <form class="formNecessarySkills">
+        <INPUT class="checkboxJava" TYPE="checkbox" NAME="OPCAO" VALUE="Java"> Java
+        <INPUT class="checkboxGroovy" TYPE="checkbox" NAME="OPCAO" VALUE="Groovy"> Groovy
+        <INPUT class="checkboxSpring" TYPE="checkbox" NAME="OPCAO" VALUE="Spring"> Spring
+        <INPUT class="checkboxJavaScript" TYPE="checkbox" NAME="OPCAO" VALUE="JavaScript"> JavaScript
+        <INPUT class="checkboxPython" TYPE="checkbox" NAME="OPCAO" VALUE="Python"> Python
+        <INPUT class="checkboxMysql" TYPE="checkbox" NAME="OPCAO" VALUE="MySQL"> MySQL
+    </form>
 
     <button class="buttonAdd" onclick="cadastraCandidato()">Cadastrar</button>
 
