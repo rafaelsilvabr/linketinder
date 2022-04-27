@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS vagas(
 
 CREATE TABLE IF NOT EXISTS competencias_candidatos(
 	competencia INT REFERENCES competencias(id) NOT NULL,
-	vaga INT REFERENCES dados_candidatos(id) NOT NULL
+	candidato INT REFERENCES dados_candidatos(id) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS competencias_vagas(
