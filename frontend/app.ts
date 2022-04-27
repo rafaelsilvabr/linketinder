@@ -167,7 +167,7 @@ function criaCandidato(){
 function validaDadosCandidato(){
     const validaCPF = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/
     const validaEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-    const validaTelefone = /^\(?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$/
+    const validaTelefone =
 
     var stringErro = " "
 
