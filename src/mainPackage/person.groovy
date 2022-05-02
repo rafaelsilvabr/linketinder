@@ -9,26 +9,53 @@ class Person {
     String country
     String state
     String description
+    String password
+    String cep
+
 }
 
 class JuridicPerson extends Person{
     String cnpj
-    String cep
-    List necessarySkills= []
+    List<Vaga> vagas=[]
 
     @Override
-    String toString() {
-        return "name:" + name + ", cnpj:" + cnpj + ", necessarySkills:" + necessarySkills + ", email:" + email + ", country:" + country + ", state:" + state + ",cep:" + cep + ", description:" + description
+    public String toString() {
+        return "JuridicPerson{" +
+                "cnpj='" + cnpj + '\'' +
+                ", vagas=" + vagas +
+                '}';
     }
 }
 
 //@ToString(includeSuper = true, includeNames = true, includePackage = false, leftDelimiter = "", rightDelimiter = "")
 class FisicPerson extends Person{
+    String sobrenome
     String cpf
     List skills = []
+    String dataNascimento
 
     @Override
-    String toString() {
-        return "name:" + name + ", cpf:" + cpf + ", skills:" + skills + ", email:" + email + ", country:" + country + ", state:" + state + ", description:" + description
+    public String toString() {
+        return "FisicPerson{" +
+                "sobrenome='" + sobrenome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", skills=" + skills +
+                ", dataNascimento='" + dataNascimento + '\'' +
+                '}';
+    }
+}
+
+class Vaga{
+    String nome
+    String descricao
+    List<String> competencias = []
+
+    @Override
+    public String toString() {
+        return "Vaga{" +
+                "nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", competencias=" + competencias +
+                '}';
     }
 }

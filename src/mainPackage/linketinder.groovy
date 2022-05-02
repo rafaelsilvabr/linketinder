@@ -1,21 +1,18 @@
 package mainPackage
 
-import groovy.json.JsonSlurper
-
 import javax.swing.JOptionPane
 
-//READ Files
-def jsonSlurper = new JsonSlurper()
-File file = new File("candidates.json")
-List candidates = jsonSlurper.parse(file).collect {
-    new FisicPerson(name: it.name, email: it.email, cpf: it.cpf, skills: it.skills, country: it.country, state: it.state, description: it.description)
-}
+//TESTE DB
 
-file = new File("companies.json")
-List companies = jsonSlurper.parse(file).collect {
-    new JuridicPerson(name: it.name, email: it.email, cnpj: it.cnpj, necessarySkills: it.necessarySkills, country: it.country, state: it.state, cep: it.cep, description: it.description)
-}
+db = new dbcrud()
 
+//db.createCompetencia("Flutter")
+//db.updateCandidato()
+
+//db.list("dados_empresas")
+db.selecionaEmpresa("paezihosgostosos@gmail.com")
+
+//--------------------
 
 def input = 1
 while (input != 0){
@@ -23,21 +20,20 @@ while (input != 0){
             "O que você deseja listar?\n" +
             "Aperte 1 para listar os candidatos\n" +
             "Aperte 2 para listar as empresas\n" +
+            "Aperte 3 para inserir um candidato\n" +
+            "Aperte 4 para inserir uma empresa\n" +
+            "Aperte 5 para inserir uma competencia\n" +
+            "Aperte 6 para inserir uma vaga\n"+
             "Aperte 0 para sair\n"
 
     if(input == "1"){
-        def buffer = "----- candidatos -------\n"
-        for (person in candidates){
-            buffer= buffer + person.toString() + "\n"
-        }
-        JOptionPane.showMessageDialog(null,buffer)
+        print ("----- candidatos -------\n")
+        db.list("dados_candidatos")
+        //JOptionPane.showMessageDialog(null,buffer)
     }
     if(input == "2"){
-        def buffer = "----- empresas -------\n"
-        for (companie in companies){
-            buffer = buffer + companie.toString() + "\n"
-        }
-        JOptionPane.showMessageDialog(null, buffer)
+        print("----- empresas -------\n")
+        db.list("dados_empresas")
     }
     if(input == "0"){
         break
@@ -47,9 +43,5 @@ while (input != 0){
     }
 }
 
-//Update Files
-def jsonCandidates = groovy.json.JsonOutput.toJson(candidates)
-new File("candidates.json").write(jsonCandidates.toString())
-
-def jsonCompanies = groovy.json.JsonOutput.toJson(companies)
-new File("companies.json").write(jsonCompanies.toString())
+//Fecha a conexão com o banco de dados
+db.close()

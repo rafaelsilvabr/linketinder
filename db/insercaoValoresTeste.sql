@@ -26,3 +26,7 @@
 --VALUES ('Dev FrontEnd Jr.', 'Buscamos um programador iniciante',(SELECT id FROM dados_empresas WHERE email = 'paezihosgostosos@gmail.com'));
 
 --SELECT * FROM vagas;
+
+--INSERT INTO competencias_vagas (competencia, vaga)
+--VALUES ((SELECT id FROM competencias WHERE nome = 'Groovy'),(SELECT id FROM vagas WHERE nome = 'Dev FrontEnd Jr.' AND local_vaga = (SELECT id FROM dados_empresas WHERE email = 'paezihosgostosos@gmail.com')));
+
