@@ -8,15 +8,15 @@ class linketinderTests {
     void testeCriarUser(){
         List listofUsers = []
 
-        listofUsers.add(new FisicPerson(name: "Joao", email: "joaozinho123@mail.com", cpf: "123456789", skills: ["java", "groovy"], country: "Brazil", state: "RJ", description: "Um programador cansado"))
-        assert ("[name:Joao, cpf:123456789, skills:[java, groovy], email:joaozinho123@mail.com, country:Brazil, state:RJ, description:Um programador cansado]" == listofUsers.toString())
+        listofUsers.add(new FisicPerson(nome: "Joao", email: "joaozinho123@mail.com", cpf: "123456789", skills: ["java", "groovy"], pais: "Brazil", estado: "RJ", descricao: "Um programador cansado"))
+        assert ("[nome:Joao, cpf:123456789, skills:[java, groovy], email:joaozinho123@mail.com, pais:Brazil, estado:RJ, descricao:Um programador cansado]" == listofUsers.toString())
     }
 
     @Test
     void testeCriarEmpresa(){
         List listofCompanies = []
 
-        listofCompanies.add(new JuridicPerson(name: "DevsEspetaculares", email: "devsdevs@mail.com", cnpj: "8978123216513", necessarySkills: ["java", "spring"], country: "Brazil", state: "SP", description: "Uma empresa sensacional"))
-        assert ("[name:DevsEspetaculares, cnpj:8978123216513, necessarySkills:[java, spring], email:devsdevs@mail.com, country:Brazil, state:SP,cep:null, description:Uma empresa sensacional]" == listofCompanies.toString())
+        listofCompanies.add(new JuridicPerson(nome: "DevsEspetaculares", email: "devsdevs@mail.com", cnpj: "8978123216513", necessarySkills: ["java", "spring"], pais: "Brazil", estado: "SP", descricao: "Uma empresa sensacional"))
+        assert ("[nome:DevsEspetaculares, cnpj:8978123216513, necessarySkills:[java, spring], email:devsdevs@mail.com, pais:Brazil, estado:SP,cep:null, descricao:Uma empresa sensacional]" == listofCompanies.toString())
     }
 }

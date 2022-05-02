@@ -4,12 +4,12 @@ import groovy.transform.ToString
 
 @ToString(includePackage = false, includeNames = true)
 class Person {
-    String name
+    String nome
     String email
-    String country
-    String state
-    String description
-    String password
+    String pais
+    String estado
+    String descricao
+    String senha
     String cep
 
 }

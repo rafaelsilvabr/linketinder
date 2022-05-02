@@ -8,12 +8,12 @@ import groovy.sql.Sql
 class dbcrud{
     String url= 'jdbc:postgresql://localhost:5432/linketinder'
     String user= 'postgres'
-    String password= 'postgres'
+    String senha= 'postgres'
     String driver= 'org.postgresql.Driver'
     Sql sql
 
     dbcrud(){
-        this.sql= Sql.newInstance(this.url, this.user, this.password, this.driver)
+        this.sql= Sql.newInstance(this.url, this.user, this.senha, this.driver)
     }
 
     void close (){
@@ -47,15 +47,15 @@ class dbcrud{
     FisicPerson selecionaCandidato(String email){
         def result = sql.firstRow("SELECT * FROM dados_candidatos WHERE email = '"+email+"';")
         FisicPerson candidato = new FisicPerson(
-                name: result['nome'],
+                nome: result['nome'],
                 sobrenome: result['sobrenome'],
                 dataNascimento: result['data_nascimento'],
                 email: result['email'],
                 cpf: result['cpf'],
-                country: result['pais'],
+                pais: result['pais'],
                 cep: result['cep'],
-                description: result['descricao'],
-                password: result['senha']
+                descricao: result['descricao'],
+                senha: result['senha']
         )
 
         def competencias = sql.rows("SELECT * FROM competencias_candidatos WHERE candidato = (SELECT id FROM dados_candidatos WHERE email = '"+candidato.email+"')")
@@ -69,18 +69,18 @@ class dbcrud{
     JuridicPerson selecionaEmpresa(String email){
         def result = sql.firstRow("SELECT * FROM dados_empresas WHERE email = '"+email+"';")
         JuridicPerson empresa = new JuridicPerson(
-                name: result['nome'],
+                nome: result['nome'],
                 email: result['email'],
                 cnpj: result['cnpj'],
-                country: result['pais'],
+                pais: result['pais'],
                 cep: result['cep'],
-                description: result['descricao'],
-                password: result['senha']
+                descricao: result['descricao'],
+                senha: result['senha']
         )
 
         def vagas = sql.rows("SELECT * FROM vagas WHERE local_vaga = (SELECT id FROM dados_empresas WHERE email = '"+empresa.email+"')")
         for (vaga in vagas){
-            Vaga vagaclass = new Vaga(
+            Vaga instanciaVaga = new Vaga(
                     nome: vaga['nome'],
                     descricao: vaga['descricao']
             )
@@ -88,9 +88,9 @@ class dbcrud{
             //print competenciasVaga
             for (competencia in competenciasVaga){
                 var nomeCompetencia = sql.firstRow("SELECT nome FROM competencias WHERE id =" + competencia['competencia'])
-                vagaclass.competencias.add(nomeCompetencia['nome'])
+                instanciaVaga.competencias.add(nomeCompetencia['nome'])
             }
-            empresa.vagas.add(vagaclass)
+            empresa.vagas.add(instanciaVaga)
         }
         print(empresa)
         return empresa
@@ -99,7 +99,7 @@ class dbcrud{
 
     void createCandidato(FisicPerson candidato){
         sql.execute("INSERT INTO dados_candidatos(nome, sobrenome, data_nascimento, email, cpf, pais, cep, descricao, senha)" +
-                "VALUES ('"+candidato.name+"', '"+candidato.sobrenome+"', '"+candidato.dataNascimento+"','"+candidato.email+"', '"+candidato.cpf+"', '"+candidato.country+"', '"+candidato.cep+"', '"+candidato.description+"', '"+candidato.password+"');")
+                "VALUES ('"+candidato.nome+"', '"+candidato.sobrenome+"', '"+candidato.dataNascimento+"','"+candidato.email+"', '"+candidato.cpf+"', '"+candidato.pais+"', '"+candidato.cep+"', '"+candidato.descricao+"', '"+candidato.senha+"');")
         for (competencia in candidato.skills){
             createCompetenciaCanidato(competencia, candidato.email)
         }
@@ -112,7 +112,7 @@ class dbcrud{
 
     void createEmpresa(JuridicPerson empresa){
         sql.execute("INSERT INTO dados_empresas(nome, cnpj, email, descricao, pais, cep, senha)" +
-                "VALUES ('"+empresa.name+"', '"+empresa.cnpj+"', '"+empresa.email+"', '"+empresa.description+"', '"+empresa.country+"', '"+empresa.cep+"', '"+empresa.password+"');")
+                "VALUES ('"+empresa.nome+"', '"+empresa.cnpj+"', '"+empresa.email+"', '"+empresa.descricao+"', '"+empresa.pais+"', '"+empresa.cep+"', '"+empresa.senha+"');")
         for(vaga in empresa.vagas){
             createVaga(vaga, empresa)
         }
@@ -154,25 +154,25 @@ class dbcrud{
 
     void updateEmpresa(JuridicPerson empresa){
         sql.execute("UPDATE dados_empresas\n" +
-                "SET nome = '"+empresa.name+"'," +
+                "SET nome = '"+empresa.nome+"'," +
                 "cnpj = '"+empresa.cnpj+"'," +
-                "pais = '"+empresa.country+"'," +
+                "pais = '"+empresa.pais+"'," +
                 "cep = '"+empresa.cep+"'," +
-                "descricao = '"+empresa.description+"'," +
-                "senha = '"+empresa.password+"'\n" +
+                "descricao = '"+empresa.descricao+"'," +
+                "senha = '"+empresa.senha+"'\n" +
                 "WHERE email = '"+empresa.email+"';")
     }
 
     void updateCandidato(FisicPerson candidato){
         sql.execute("UPDATE dados_candidatos\n" +
-                "SET nome = '"+candidato.name+"'," +
+                "SET nome = '"+candidato.nome+"'," +
                 "sobrenome = '"+candidato.sobrenome+"'," +
                 "data_nascimento = '"+candidato.dataNascimento+"'," +
                 "cpf = '"+candidato.cpf+"'," +
-                "pais = '"+candidato.country+"'," +
+                "pais = '"+candidato.pais+"'," +
                 "cep = '"+candidato.cep+"'," +
-                "descricao = '"+candidato.description+"'," +
-                "senha = '"+candidato.password+"'\n" +
+                "descricao = '"+candidato.descricao+"'," +
+                "senha = '"+candidato.senha+"'\n" +
                 "WHERE email = '"+candidato.email+"';")
     }
 

@@ -2,18 +2,18 @@ const a: string = "Teste3"
 console.log(a)
 
 class Person{
-    name: string
+    nome: string
     email: string
-    country: string
-    state: string
-    description: string
+    pais: string
+    estado: string
+    descricao: string
 
-    constructor(name: string, email: string, country: string, state: string, description: string) {
-        this.name = name;
+    constructor(nome: string, email: string, pais: string, estado: string, descricao: string) {
+        this.nome = nome;
         this.email = email;
-        this.country = country;
-        this.state = state;
-        this.description = description;
+        this.pais = pais;
+        this.estado = estado;
+        this.descricao = descricao;
     }
 }
 
@@ -22,8 +22,8 @@ class JuridicPerson extends Person{
     cep: string
     necessarySkils: string[]
 
-    constructor(name: string, email: string, country: string, state: string, description: string, cnpj: string, cep: string, necessarySkils: string[]) {
-        super(name, email, country, state, description);
+    constructor(nome: string, email: string, pais: string, estado: string, descricao: string, cnpj: string, cep: string, necessarySkils: string[]) {
+        super(nome, email, pais, estado, descricao);
         this.cnpj = cnpj;
         this.cep = cep;
         this.necessarySkils = necessarySkils;
@@ -35,8 +35,8 @@ class FisicPerson extends Person{
     skills: string[]
     telefone: string
 
-    constructor(name: string, email: string, country: string, state: string, description: string, cpf: string, skills: string[], telefone:string) {
-        super(name, email, country, state, description);
+    constructor(nome: string, email: string, pais: string, estado: string, descricao: string, cpf: string, skills: string[], telefone:string) {
+        super(nome, email, pais, estado, descricao);
         this.cpf = cpf;
         this.skills = skills;
         this.telefone = telefone;
@@ -231,7 +231,7 @@ function listaCandidatos(){
         const nomeCandidato = document.createElement("p")
         nomeCandidato.textContent = "*********"
         const descricao = document.createElement("p")
-        descricao.textContent = cand.description
+        descricao.textContent = cand.descricao
         const skills = document.createElement("p")
         skills.textContent = cand.skills
 
@@ -263,7 +263,7 @@ function listaEmpresas() {
         const nomeEmpresa = document.createElement("p")
         nomeEmpresa.textContent = "*********"
         const descricao = document.createElement("p")
-        descricao.textContent = empr.description
+        descricao.textContent = empr.descricao
         const necessaryskills = document.createElement("p")
         necessaryskills.textContent = empr.necessarySkils
 
